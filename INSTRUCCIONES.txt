@@ -1,0 +1,10 @@
+PATCH KOA V5.0.2
+
+Reemplazar exactamente:
+- app.py (raíz)
+- config.py (raíz)
+- core/loader.py
+- core/metrics.py
+
+No crear carpetas duplicadas. Después hacer Commit y en Streamlit: Manage app > Reboot app.
+La versión visible debe cambiar a V5.0.2.
