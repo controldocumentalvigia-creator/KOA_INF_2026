@@ -1,1 +1,1 @@
-# Funciones geográficas, coordenadas, distancias y mapas.
+"""Utilidades geográficas para KOA Analytics."""
