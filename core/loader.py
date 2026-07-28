@@ -4,6 +4,7 @@ import pandas as pd
 from config import (
     DEFAULT_SHEET, ALL_STOPS, MAX_VALID_DEVIATION_MIN,
     MIN_VALID_TRIP_MIN, MAX_VALID_TRIP_MIN,
+    MORNING_TOLERANCE_MIN, AFTERNOON_TOLERANCE_MIN,
 )
 from core.utils import norm, to_minutes, canonical_stops, stop_slug
 
@@ -37,9 +38,9 @@ def _punctuality_class(row) -> str:
     if dev < 0:
         return "ANTICIPADA"
     if shift == "MANANA":
-        return "PUNTUAL" if np.isclose(dev, 0.0, atol=0.01) else "RETRASADA"
+        return "PUNTUAL" if dev <= MORNING_TOLERANCE_MIN else "RETRASADA"
     if shift == "TARDE":
-        return "PUNTUAL" if dev <= 5 else "RETRASADA"
+        return "PUNTUAL" if dev <= AFTERNOON_TOLERANCE_MIN else "RETRASADA"
     return "SIN CLASIFICAR"
 
 
