@@ -26,7 +26,7 @@ div[data-testid="stMetric"] {background:white;border:1px solid #dce4ed;border-ra
 st.markdown(f'<div class="koa-title"><h1>{APP_TITLE}</h1><p>{APP_SUBTITLE} · V{APP_VERSION}</p></div>', unsafe_allow_html=True)
 
 @st.cache_data(show_spinner=False)
-def cached_load(path: str):
+def cached_load(path: str, app_version: str):
     return load_workbook(path)
 
 upload = st.sidebar.file_uploader("Cargar base KOA (.xlsx)", type=["xlsx"])
@@ -37,7 +37,7 @@ try:
         path = Path(DEFAULT_WORKBOOK)
         if not path.exists(): path = Path("data") / DEFAULT_WORKBOOK
         if not path.exists(): raise FileNotFoundError(f"No se encontró {DEFAULT_WORKBOOK}")
-        df = cached_load(str(path))
+        df = cached_load(str(path), APP_VERSION)
 except Exception as exc:
     st.error(f"No fue posible cargar la base: {exc}")
     st.stop()
