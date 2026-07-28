@@ -6,7 +6,7 @@ from dashboard.common import chart, table
 
 def render(df):
     st.subheader("Puntualidad por jornada y recorrido")
-    st.caption("Mañana: puntual únicamente a la hora programada. Tarde: puntual entre 0 y 5 minutos; retraso desde el minuto 6.")
+    st.caption("Mañana y tarde: puntual entre 0 y 5 minutos; anticipada antes de la hora programada y retrasada desde el minuto 6.")
     summary = punctuality_summary(df)
     if summary.empty:
         st.info("No hay registros válidos de puntualidad.")
