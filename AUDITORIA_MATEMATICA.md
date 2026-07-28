@@ -4,7 +4,7 @@
 
 La desviación se calcula como `hora real de salida - hora programada`.
 
-- **Mañana:** anticipada `< 0`; puntual `= 0`; retrasada `> 0`.
+- **Mañana:** anticipada `< 0`; puntual entre `0 y 5`; retrasada `> 5`.
 - **Tarde:** anticipada `< 0`; puntual entre `0 y 5`; retrasada `> 5`.
 - La puntualidad general se calcula con todos los registros válidos: `salidas puntuales / registros válidos`. No es el promedio simple de los porcentajes por jornada.
 - Se excluyen horas ausentes y desviaciones absolutas superiores a 180 minutos.
