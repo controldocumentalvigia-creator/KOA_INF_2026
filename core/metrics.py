@@ -2,7 +2,7 @@ from __future__ import annotations
 import itertools
 import numpy as np
 import pandas as pd
-from config import ALL_STOPS, MORNING_STOPS, AFTERNOON_STOPS
+from config import ALL_STOPS, MORNING_STOPS, AFTERNOON_STOPS, MORNING_TOLERANCE_MIN, AFTERNOON_TOLERANCE_MIN
 from core.utils import stop_slug
 
 
@@ -25,7 +25,26 @@ def effective_records(df):
 
 
 def _punctual_valid(df):
-    return df[df["desv_min"].notna() & df["clasificacion_puntualidad"].isin(["ANTICIPADA", "PUNTUAL", "RETRASADA"])].copy()
+    """Recalcula la puntualidad desde desv_min para evitar campos antiguos en caché o bases previas."""
+    valid = df[df["desv_min"].notna() & df["jornada"].isin(["MANANA", "TARDE"])].copy()
+    if valid.empty:
+        return valid
+
+    tolerance = np.where(
+        valid["jornada"].eq("MANANA"),
+        MORNING_TOLERANCE_MIN,
+        AFTERNOON_TOLERANCE_MIN,
+    )
+    valid["anticipada"] = valid["desv_min"] < 0
+    valid["puntualidad_oficial"] = valid["desv_min"].ge(0) & valid["desv_min"].le(tolerance)
+    valid["retraso_oficial"] = valid["desv_min"] > tolerance
+    valid["clasificacion_puntualidad"] = np.select(
+        [valid["anticipada"], valid["puntualidad_oficial"], valid["retraso_oficial"]],
+        ["ANTICIPADA", "PUNTUAL", "RETRASADA"],
+        default="SIN CLASIFICAR",
+    )
+    valid["puntual_pm5"] = valid["desv_min"].abs().le(5)
+    return valid
 
 
 def _pct(valid, condition):
