@@ -1,6 +1,6 @@
 APP_TITLE = "Centro de Inteligencia Operacional KOA"
 APP_SUBTITLE = "Estudios de tiempos, puntualidad, paraderos y simulación operacional"
-APP_VERSION = "5.0.1"
+APP_VERSION = "5.0.2"
 DEFAULT_WORKBOOK = "Dinamica_de_paraderos_KOA_ES.xlsx"
 DEFAULT_SHEET = "seguimiento_h_op"
 
