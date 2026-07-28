@@ -1,6 +1,6 @@
 APP_TITLE = "Centro de Inteligencia Operacional KOA"
 APP_SUBTITLE = "Estudios de tiempos, puntualidad, paraderos y simulación operacional"
-APP_VERSION = "5.0.0"
+APP_VERSION = "5.0.1"
 DEFAULT_WORKBOOK = "Dinamica_de_paraderos_KOA_ES.xlsx"
 DEFAULT_SHEET = "seguimiento_h_op"
 
@@ -12,7 +12,7 @@ ROUTES = ["R1", "R2", "R3"]
 SHIFTS = ["MANANA", "TARDE"]
 
 # Regla operacional de puntualidad
-MORNING_TOLERANCE_MIN = 0
+MORNING_TOLERANCE_MIN = 5
 AFTERNOON_TOLERANCE_MIN = 5
 MAX_VALID_DEVIATION_MIN = 180
 MIN_VALID_TRIP_MIN = 1
