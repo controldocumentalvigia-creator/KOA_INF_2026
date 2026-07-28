@@ -92,7 +92,7 @@ for col, (label, value) in zip(row2, [
     ("Tiempo recorrido", mins(m["tiempo_total_recorrido"])), ("Tiempo detenido", mins(m["tiempo_total_espera"])),
 ]): col.metric(label, value)
 
-st.caption("Regla oficial: mañana sin tolerancia; tarde con espera autorizada de hasta 5 minutos. La puntualidad general es ponderada por registros válidos, no el promedio simple de jornadas.")
+st.caption("Regla oficial: mañana y tarde con espera autorizada de hasta 5 minutos. La puntualidad general es ponderada por registros válidos, no el promedio simple de jornadas.")
 
 tabs = st.tabs([
     "Resumen ejecutivo", "Mensual y semanal", "Demanda", "Paraderos", "Mapa estratégico",
@@ -118,7 +118,7 @@ with tabs[14]:
     st.json(audit)
     st.markdown("""
 **Reglas auditadas**
-- Mañana: anticipada `< 0`; puntual `= 0`; retrasada `> 0` minutos.
+- Mañana: anticipada `< 0`; puntual entre `0 y 5`; retrasada `> 5` minutos.
 - Tarde: anticipada `< 0`; puntual `0 a 5`; retrasada `> 5` minutos.
 - Paraderos: se leen exclusivamente de `PARADAS`. OXXO HÉROES es un solo punto de mañana.
 - Tiempo efectivo: recorridos efectivos con duración válida entre 0 y 240 minutos.
@@ -126,3 +126,4 @@ with tabs[14]:
 - Los mapas y simulaciones son exploratorios; exigen validación de campo y piloto.
 """)
     st.dataframe(filtered, hide_index=True, use_container_width=True)
+
